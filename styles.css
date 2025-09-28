@@ -1,0 +1,450 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.logo-section {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.logo-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.logo-avatar span {
+    background-color: #28a745;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.logo-avatar i {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.company-info {
+    font-size: 14px;
+}
+
+.company-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.user-name {
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.user-role {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.user-role i {
+    margin-right: 4px;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    flex: 1;
+    padding: 20px 0;
+}
+
+.nav-menu ul {
+    list-style: none;
+}
+
+.nav-menu li {
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #495057;
+    transition: background-color 0.2s;
+}
+
+.nav-menu li:hover {
+    background-color: #f8f9fa;
+}
+
+.nav-menu li.active {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border-right: 3px solid #1976d2;
+}
+
+.nav-menu li i {
+    margin-right: 12px;
+    width: 16px;
+    font-size: 14px;
+}
+
+.nav-menu li a {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-menu li.has-submenu {
+    justify-content: space-between;
+}
+
+.bottom-menu {
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.jet-hr-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 600;
+    color: #333;
+}
+
+.jet-hr-logo i {
+    margin-right: 8px;
+    background-color: #000;
+    color: white;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.jet-logo {
+    height: 96px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.main-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+}
+
+/* Sections */
+section {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+/* Approval Section */
+.approval-section {
+    grid-column: 1;
+}
+
+.approval-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.checkboxes {
+    display: flex;
+    gap: 8px;
+}
+
+.checkboxes input[type="checkbox"] {
+    display: none;
+}
+
+.checkboxes label {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #28a745;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #28a745;
+    position: relative;
+}
+
+.checkboxes label::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.approval-item p {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Events Section */
+.events-section {
+    grid-column: 2;
+    grid-row: 1 / 3;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.view-all {
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.event-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.event-icon.yellow {
+    background-color: #fff3cd;
+}
+
+.event-icon.green {
+    background-color: #d1e7dd;
+}
+
+.event-details {
+    flex: 1;
+}
+
+.event-text {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.event-date {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Costs Sections */
+.costs-section {
+    background-color: white;
+}
+
+.cost-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cost-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cost-label {
+    font-size: 14px;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cost-label i {
+    font-size: 12px;
+    color: #adb5bd;
+}
+
+.cost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.cost-row span:first-child {
+    color: #6c757d;
+}
+
+.amount {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Attendance Section */
+.attendance-section {
+    grid-column: 1;
+}
+
+.attendance-section h2 {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.attendance-section h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.calendar-link {
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.calendar-link:hover {
+    text-decoration: underline;
+}
+
+.calendar-link i {
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .events-section {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 260px;
+    }
+    
+    .main-content {
+        padding: 20px;
+    }
+    
+    .content-grid {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .nav-menu {
+        padding: 10px 0;
+    }
+    
+    .nav-menu li {
+        padding: 8px 20px;
+    }
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Jet HR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <div class="logo-avatar">
+                    <span>MM</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+                <div class="company-info">
+                    <div class="company-name">Liquid Grumello s.r.l.</div>
+                    <div class="user-name">Mariani Matteo</div>
+                    <div class="user-role"><i class="fas fa-user"></i> Admin</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active"><i class="fas fa-home"></i> Home</li>
+                    <li><i class="fas fa-user"></i> Personale</li>
+                    <li><i class="fas fa-clock"></i> Presenze e assenze</li>
+                    <li><i class="fas fa-money-bill"></i> Rimborsi spese</li>
+                    <li><i class="fas fa-calendar"></i> Eventi</li>
+                    <li><i class="fas fa-shield-alt"></i> Sicurezza e salute</li>
+                    <li><i class="fas fa-users"></i> Cedolini dipendenti</li>
+                    <li><i class="fas fa-file"></i> Documenti</li>
+                    <li><i class="fas fa-laptop"></i> Noleggio device</li>
+                    <li><a href="carte-aziendali.html"><i class="fas fa-credit-card"></i> Carte aziendali</a></li>
+                    <li class="has-submenu">
+                        <i class="fas fa-chart-bar"></i> Report
+                        <i class="fas fa-chevron-down"></i>
+                    </li>
+                </ul>
+                
+                <div class="bottom-menu">
+                    <ul>
+                        <li><i class="fas fa-cog"></i> Impostazioni azienda</li>
+                        <li><i class="fas fa-graduation-cap"></i> Impara le basi</li>
+                        <li><i class="fas fa-headset"></i> Articoli dell'assistenza</li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="jet-hr-logo">
+                    <img src="jet.png" alt="Jet HR" class="jet-logo">
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Ciao Matteo</h1>
+            </header>
+
+            <div class="content-grid">
+                <!-- Da approvare section -->
+                <section class="approval-section">
+                    <h2>Da approvare</h2>
+                    <div class="approval-items">
+                        <div class="approval-item">
+                            <div class="checkboxes">
+                                <input type="checkbox" id="check1" checked>
+                                <label for="check1"></label>
+                                <input type="checkbox" id="check2" checked>
+                                <label for="check2"></label>
+                            </div>
+                            <p>Hai controllato tutte le richieste!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prossimi eventi section -->
+                <section class="events-section">
+                    <div class="section-header">
+                        <h2>Prossimi eventi</h2>
+                        <a href="#" class="view-all">Vedi tutti</a>
+                    </div>
+                    <div class="events-list">
+                        <div class="event-item">
+                            <div class="event-icon yellow">📄</div>
+                            <div class="event-details">
+                                <div class="event-text">📄 Inizio elaborazione ciclo paghe di Settembre 2025</div>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon green">💰</div>
+                            <div class="event-details">
+                                <div class="event-text">💰 Cedolini di Settembre 2025 disponibili</div>
+                                <div class="event-date">Lun 29/09/2025</div>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon yellow">📄</div>
+                            <div class="event-details">
+                                <div class="event-text">📄 Scadenza pagamento dell'F24 di Settembre 2025</div>
+                                <div class="event-date">Mer 15/10/2025</div>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon yellow">📄</div>
+                            <div class="event-details">
+                                <div class="event-text">📄 Inizio elaborazione ciclo paghe di Ottobre 2025</div>
+                                <div class="event-date">Mer 28/10/2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Costo del personale section -->
+                <section class="costs-section">
+                    <h3>Costo del personale</h3>
+                    <div class="cost-items">
+                        <div class="cost-item">
+                            <span class="cost-label">Flusso di cassa <i class="fas fa-info-circle"></i></span>
+                        </div>
+                        <div class="cost-row">
+                            <span>Agosto 2025</span>
+                            <span class="amount">9.148 €</span>
+                        </div>
+                        <div class="cost-row">
+                            <span>Luglio 2025</span>
+                            <span class="amount">9.344 €</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Costo azienda section -->
+                <section class="costs-section">
+                    <h3>Costo azienda <i class="fas fa-info-circle"></i></h3>
+                    <div class="cost-items">
+                        <div class="cost-row">
+                            <span>Agosto 2025</span>
+                            <span class="amount">9.161 €</span>
+                        </div>
+                        <div class="cost-row">
+                            <span>Luglio 2025</span>
+                            <span class="amount">9.161 €</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tutti presenti section -->
+                <section class="attendance-section">
+                    <h2>Oggi</h2>
+                    <h3>Tutti presenti!</h3>
+                    <a href="#" class="calendar-link">Visualizza il calendario <i class="fas fa-arrow-right"></i></a>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

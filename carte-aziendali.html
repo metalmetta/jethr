@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Aziendali - Jet HR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="carte-aziendali.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <div class="logo-avatar">
+                    <span>MM</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </div>
+                <div class="company-info">
+                    <div class="company-name">Liquid Grumello s.r.l.</div>
+                    <div class="user-name">Mariani Matteo</div>
+                    <div class="user-role"><i class="fas fa-user"></i> Admin</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><i class="fas fa-user"></i> Personale</li>
+                    <li><i class="fas fa-clock"></i> Presenze e assenze</li>
+                    <li class="active"><i class="fas fa-credit-card"></i> Carte aziendali</li>
+                    <li><i class="fas fa-money-bill"></i> Rimborsi spese</li>
+                    <li><i class="fas fa-calendar"></i> Eventi</li>
+                    <li><i class="fas fa-shield-alt"></i> Sicurezza e salute</li>
+                    <li><i class="fas fa-users"></i> Cedolini dipendenti</li>
+                    <li><i class="fas fa-file"></i> Documenti</li>
+                    <li><i class="fas fa-laptop"></i> Noleggio device</li>
+                    <li class="has-submenu">
+                        <i class="fas fa-chart-bar"></i> Report
+                        <i class="fas fa-chevron-down"></i>
+                    </li>
+                </ul>
+                
+                <div class="bottom-menu">
+                    <ul>
+                        <li><i class="fas fa-cog"></i> Impostazioni azienda</li>
+                        <li><i class="fas fa-graduation-cap"></i> Impara le basi</li>
+                        <li><i class="fas fa-headset"></i> Articoli dell'assistenza</li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="jet-hr-logo">
+                    <img src="jet.png" alt="Jet HR" class="jet-logo">
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <h1>Carte Aziendali</h1>
+                    <p class="header-subtitle">Gestisci le carte virtuali per i dipendenti della tua azienda</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="createCardBtn">
+                        <i class="fas fa-plus"></i>
+                        Crea nuova carta
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Overview -->
+            <section class="stats-overview">
+                <!-- Left side: Card numbers -->
+                <div class="stats-numbers">
+                    <div class="number-card active-cards">
+                        <div class="number-display">
+                            <span class="big-number">12</span>
+                            <div class="number-details">
+                                <span class="number-label">Carte Attive</span>
+                                <span class="number-change">+2 questo mese</span>
+                            </div>
+                        </div>
+                        <div class="number-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="number-card suspended-cards">
+                        <div class="number-display">
+                            <span class="big-number">3</span>
+                            <div class="number-details">
+                                <span class="number-label">Carte Sospese</span>
+                                <span class="number-change">-1 questa settimana</span>
+                            </div>
+                        </div>
+                        <div class="number-icon">
+                            <i class="fas fa-pause-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="number-card total-cards">
+                        <div class="number-display">
+                            <span class="big-number">15</span>
+                            <div class="number-details">
+                                <span class="number-label">Totale Carte</span>
+                                <span class="number-change">Invariato</span>
+                            </div>
+                        </div>
+                        <div class="number-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right side: Spending chart -->
+                <div class="stats-chart">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Spese vs Limiti Mensili</h3>
+                            <p class="chart-subtitle">Panoramica dell'utilizzo delle carte aziendali</p>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="spendingChart"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color spending"></span>
+                                <span>Spese Effettive: €24.567</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color limit"></span>
+                                <span>Limite Totale: €150.000</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color available"></span>
+                                <span>Disponibile: €125.433</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters and Search -->
+            <section class="filters-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Cerca per nome dipendente o numero carta..." id="searchInput">
+                </div>
+                <div class="filters">
+                    <select id="statusFilter">
+                        <option value="">Tutti gli stati</option>
+                        <option value="active">Attiva</option>
+                        <option value="suspended">Sospesa</option>
+                        <option value="expired">Scaduta</option>
+                    </select>
+                    <select id="departmentFilter">
+                        <option value="">Tutti i reparti</option>
+                        <option value="vendite">Vendite</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="it">IT</option>
+                        <option value="amministrazione">Amministrazione</option>
+                        <option value="risorse-umane">Risorse Umane</option>
+                    </select>
+                    <button class="btn-secondary" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        Esporta
+                    </button>
+                </div>
+            </section>
+
+            <!-- Cards Grid -->
+            <section class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card-item" data-status="active" data-department="vendite">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <h3>Marco Rossi</h3>
+                            <p class="department">Vendite</p>
+                            <p class="card-number">**** **** **** 4521</p>
+                        </div>
+                        <div class="card-status active">
+                            <span class="status-dot"></span>
+                            Attiva
+                        </div>
+                    </div>
+                    <div class="card-visual">
+                        <div class="virtual-card visa">
+                            <div class="card-brand"><img src="visalogo.png" alt="VISA" class="card-logo"></div>
+                            <div class="card-chip">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="card-details">
+                                <div class="card-number-display">4532 1234 5678 4521</div>
+                                <div class="card-holder">MARCO ROSSI</div>
+                                <div class="card-expiry">12/27</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="label">Limite mensile</span>
+                            <span class="value">€5.000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Speso questo mese</span>
+                            <span class="value">€2.847</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Ultima transazione</span>
+                            <span class="value">2 ore fa</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-action" title="Visualizza dettagli">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-action" title="Modifica limiti">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action" title="Sospendi carta">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="btn-action danger" title="Blocca carta">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-item" data-status="active" data-department="marketing">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <h3>Giulia Bianchi</h3>
+                            <p class="department">Marketing</p>
+                            <p class="card-number">**** **** **** 7892</p>
+                        </div>
+                        <div class="card-status active">
+                            <span class="status-dot"></span>
+                            Attiva
+                        </div>
+                    </div>
+                    <div class="card-visual">
+                        <div class="virtual-card mastercard">
+                            <div class="card-brand"><img src="mclogo.svg.png" alt="MasterCard" class="card-logo"></div>
+                            <div class="card-chip">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="card-details">
+                                <div class="card-number-display">5432 1098 7654 7892</div>
+                                <div class="card-holder">GIULIA BIANCHI</div>
+                                <div class="card-expiry">08/26</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="label">Limite mensile</span>
+                            <span class="value">€3.500</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Speso questo mese</span>
+                            <span class="value">€1.234</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Ultima transazione</span>
+                            <span class="value">1 giorno fa</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-action" title="Visualizza dettagli">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-action" title="Modifica limiti">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action" title="Sospendi carta">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="btn-action danger" title="Blocca carta">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-item" data-status="suspended" data-department="it">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <h3>Alessandro Verdi</h3>
+                            <p class="department">IT</p>
+                            <p class="card-number">**** **** **** 3456</p>
+                        </div>
+                        <div class="card-status suspended">
+                            <span class="status-dot"></span>
+                            Sospesa
+                        </div>
+                    </div>
+                    <div class="card-visual">
+                        <div class="virtual-card visa suspended">
+                            <div class="card-brand"><img src="visalogo.png" alt="VISA" class="card-logo"></div>
+                            <div class="card-chip">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="card-details">
+                                <div class="card-number-display">4532 9876 5432 3456</div>
+                                <div class="card-holder">ALESSANDRO VERDI</div>
+                                <div class="card-expiry">03/28</div>
+                            </div>
+                            <div class="suspended-overlay">
+                                <i class="fas fa-pause-circle"></i>
+                                SOSPESA
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="label">Limite mensile</span>
+                            <span class="value">€2.000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Speso questo mese</span>
+                            <span class="value">€0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Sospesa dal</span>
+                            <span class="value">15 Set 2025</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-action" title="Visualizza dettagli">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-action success" title="Riattiva carta">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="btn-action" title="Modifica limiti">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action danger" title="Blocca carta">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card-item" data-status="active" data-department="amministrazione">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <h3>Francesca Neri</h3>
+                            <p class="department">Amministrazione</p>
+                            <p class="card-number">**** **** **** 9012</p>
+                        </div>
+                        <div class="card-status active">
+                            <span class="status-dot"></span>
+                            Attiva
+                        </div>
+                    </div>
+                    <div class="card-visual">
+                        <div class="virtual-card mastercard">
+                            <div class="card-brand"><img src="mclogo.svg.png" alt="MasterCard" class="card-logo"></div>
+                            <div class="card-chip">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="card-details">
+                                <div class="card-number-display">5432 8765 4321 9012</div>
+                                <div class="card-holder">FRANCESCA NERI</div>
+                                <div class="card-expiry">11/27</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="label">Limite mensile</span>
+                            <span class="value">€4.000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Speso questo mese</span>
+                            <span class="value">€3.456</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Ultima transazione</span>
+                            <span class="value">5 ore fa</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-action" title="Visualizza dettagli">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-action" title="Modifica limiti">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action" title="Sospendi carta">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="btn-action danger" title="Blocca carta">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card-item" data-status="active" data-department="risorse-umane">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <h3>Roberto Ferrari</h3>
+                            <p class="department">Risorse Umane</p>
+                            <p class="card-number">**** **** **** 5678</p>
+                        </div>
+                        <div class="card-status active">
+                            <span class="status-dot"></span>
+                            Attiva
+                        </div>
+                    </div>
+                    <div class="card-visual">
+                        <div class="virtual-card visa">
+                            <div class="card-brand"><img src="visalogo.png" alt="VISA" class="card-logo"></div>
+                            <div class="card-chip">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="card-details">
+                                <div class="card-number-display">4532 6789 0123 5678</div>
+                                <div class="card-holder">ROBERTO FERRARI</div>
+                                <div class="card-expiry">06/26</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="label">Limite mensile</span>
+                            <span class="value">€1.500</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Speso questo mese</span>
+                            <span class="value">€567</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Ultima transazione</span>
+                            <span class="value">3 giorni fa</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-action" title="Visualizza dettagli">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-action" title="Modifica limiti">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action" title="Sospendi carta">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="btn-action danger" title="Blocca carta">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="card-item" data-status="active" data-department="vendite">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <h3>Chiara Romano</h3>
+                            <p class="department">Vendite</p>
+                            <p class="card-number">**** **** **** 2468</p>
+                        </div>
+                        <div class="card-status active">
+                            <span class="status-dot"></span>
+                            Attiva
+                        </div>
+                    </div>
+                    <div class="card-visual">
+                        <div class="virtual-card mastercard">
+                            <div class="card-brand"><img src="mclogo.svg.png" alt="MasterCard" class="card-logo"></div>
+                            <div class="card-chip">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="card-details">
+                                <div class="card-number-display">5432 1357 9024 2468</div>
+                                <div class="card-holder">CHIARA ROMANO</div>
+                                <div class="card-expiry">09/28</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="label">Limite mensile</span>
+                            <span class="value">€6.000</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Speso questo mese</span>
+                            <span class="value">€4.123</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Ultima transazione</span>
+                            <span class="value">30 min fa</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-action" title="Visualizza dettagli">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-action" title="Modifica limiti">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action" title="Sospendi carta">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="btn-action danger" title="Blocca carta">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Transactions -->
+            <section class="recent-transactions">
+                <div class="section-header">
+                    <h2>Transazioni Recenti</h2>
+                    <a href="#" class="view-all">Vedi tutte</a>
+                </div>
+                <div class="transactions-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Dipendente</th>
+                                <th>Descrizione</th>
+                                <th>Categoria</th>
+                                <th>Importo</th>
+                                <th>Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>27 Set 2025, 14:30</td>
+                                <td>Marco Rossi</td>
+                                <td>Pranzo cliente - Ristorante Da Mario</td>
+                                <td>Rappresentanza</td>
+                                <td>€125,50</td>
+                                <td><span class="status-badge approved">Approvata</span></td>
+                            </tr>
+                            <tr>
+                                <td>27 Set 2025, 11:15</td>
+                                <td>Chiara Romano</td>
+                                <td>Carburante viaggio di lavoro</td>
+                                <td>Trasporti</td>
+                                <td>€89,30</td>
+                                <td><span class="status-badge approved">Approvata</span></td>
+                            </tr>
+                            <tr>
+                                <td>26 Set 2025, 16:45</td>
+                                <td>Giulia Bianchi</td>
+                                <td>Materiale promozionale</td>
+                                <td>Marketing</td>
+                                <td>€456,78</td>
+                                <td><span class="status-badge pending">In revisione</span></td>
+                            </tr>
+                            <tr>
+                                <td>26 Set 2025, 09:20</td>
+                                <td>Francesca Neri</td>
+                                <td>Forniture ufficio</td>
+                                <td>Amministrazione</td>
+                                <td>€234,90</td>
+                                <td><span class="status-badge approved">Approvata</span></td>
+                            </tr>
+                            <tr>
+                                <td>25 Set 2025, 13:10</td>
+                                <td>Roberto Ferrari</td>
+                                <td>Corso di formazione online</td>
+                                <td>Formazione</td>
+                                <td>€299,00</td>
+                                <td><span class="status-badge approved">Approvata</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Create Card Modal -->
+    <div id="createCardModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Crea Nuova Carta Aziendale</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createCardForm">
+                    <div class="form-group">
+                        <label for="employeeName">Nome Dipendente</label>
+                        <input type="text" id="employeeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeDepartment">Reparto</label>
+                        <select id="employeeDepartment" required>
+                            <option value="">Seleziona reparto</option>
+                            <option value="vendite">Vendite</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="it">IT</option>
+                            <option value="amministrazione">Amministrazione</option>
+                            <option value="risorse-umane">Risorse Umane</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="monthlyLimit">Limite Mensile (€)</label>
+                        <input type="number" id="monthlyLimit" min="100" max="10000" step="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardType">Tipo Carta</label>
+                        <select id="cardType" required>
+                            <option value="visa">VISA</option>
+                            <option value="mastercard">MasterCard</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Data Scadenza</label>
+                        <input type="month" id="expiryDate" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancelBtn">Annulla</button>
+                <button type="submit" class="btn-primary" form="createCardForm">Crea Carta</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="carte-aziendali.js"></script>
+</body>
+</html>
