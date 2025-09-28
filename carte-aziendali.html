@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="carte-aziendali.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -627,6 +628,72 @@
             <div class="modal-footer">
                 <button type="button" class="btn-secondary" id="cancelBtn">Annulla</button>
                 <button type="submit" class="btn-primary" form="createCardForm">Crea Carta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Limit Modification Modal -->
+    <div id="limitModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifica Limite Mensile</h2>
+                <button class="modal-close" id="limitModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="limitForm">
+                    <div class="current-info">
+                        <div class="info-item">
+                            <span class="info-label">Dipendente:</span>
+                            <span class="info-value" id="limitEmployeeName"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Limite Attuale:</span>
+                            <span class="info-value" id="currentLimit"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Speso questo mese:</span>
+                            <span class="info-value" id="currentSpending"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newLimit">Nuovo Limite Mensile (€)</label>
+                        <input type="number" id="newLimit" min="100" max="50000" step="100" required>
+                        <small class="form-help">Inserisci un valore tra €100 e €50.000</small>
+                    </div>
+                    
+                    <div class="limit-suggestions">
+                        <p>Suggerimenti rapidi:</p>
+                        <div class="suggestion-buttons">
+                            <button type="button" class="suggestion-btn" data-amount="1000">€1.000</button>
+                            <button type="button" class="suggestion-btn" data-amount="2500">€2.500</button>
+                            <button type="button" class="suggestion-btn" data-amount="5000">€5.000</button>
+                            <button type="button" class="suggestion-btn" data-amount="10000">€10.000</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="limitCancelBtn">Annulla</button>
+                <button type="submit" class="btn-primary" form="limitForm">Aggiorna Limite</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Popup Container -->
+    <div id="customPopup" class="custom-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <i class="popup-icon"></i>
+                <span class="popup-title"></span>
+                <button class="popup-close">&times;</button>
+            </div>
+            <div class="popup-body">
+                <p class="popup-message"></p>
+            </div>
+            <div class="popup-footer">
+                <button class="popup-btn popup-cancel">Annulla</button>
+                <button class="popup-btn popup-confirm">Conferma</button>
             </div>
         </div>
     </div>
